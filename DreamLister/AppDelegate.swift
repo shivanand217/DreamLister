@@ -88,6 +88,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
 }
 
+/** have to set context for data persistance **/
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
+let context = appDelegate.persistentContainer.viewContext

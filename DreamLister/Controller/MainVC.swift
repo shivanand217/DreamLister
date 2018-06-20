@@ -13,7 +13,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segment: UISegmentedControl!
     
-    
     // fetchResults
     var controller: NSFetchedResultsController<Item>!
     
@@ -83,7 +82,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
             try controller.performFetch()
         } catch  {
             
-            let error = error as! NSError
+            let error = error as? NSError
             print("\(error)")
             
         }

@@ -13,14 +13,19 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segment: UISegmentedControl!
     
+    
     // fetchResults
     var controller: NSFetchedResultsController<Item>!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        // generateTestData()
+        attemptFetch()
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,6 +77,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
+        self.controller = controller
+        
         do {
             try controller.performFetch()
         } catch  {
@@ -114,7 +121,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
                 // choose the cell which we are updating
                 let cell = tableView.cellForRow(at: indexPath) as! ItemCell
                 // update the cell data.
-                
+                configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
             }
             break
             
@@ -128,7 +135,28 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
             break
             
         }
-        
     }
+    
+    func generateTestData() {
+        
+        /** some dummy data **/
+        let item = Item(context: context)
+        item.title = "Macbook Pro"
+        item.price = 1800
+        item.details = "I can't sleep util i have this."
+        
+        let item2 = Item(context: context)
+        item2.title = "Bose Headphones"
+        item2.price = 1800
+        item2.details = "Stay away from this world."
+        
+        let item3 = Item(context: context)
+        item3.title = "Tesla Model S"
+        item3.price = 1800
+        item3.details = "One day i will own it."
+        
+        appDelegate.saveContext()
+    }
+    
 }
 

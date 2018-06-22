@@ -164,7 +164,7 @@
                                     <constraint firstAttribute="width" constant="30" id="t06-Mg-0Dn"/>
                                 </constraints>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SLx-bE-Rz4">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SLx-bE-Rz4" customClass="CustomTextField" customModule="DreamLister" customModuleProvider="target">
                                 <rect key="frame" x="108" y="92" width="267" height="23"/>
                                 <color key="backgroundColor" red="0.87363797426223755" green="0.96671134233474731" blue="0.8863525390625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -174,7 +174,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OJy-Lf-rJT">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OJy-Lf-rJT" customClass="CustomTextField" customModule="DreamLister" customModuleProvider="target">
                                 <rect key="frame" x="108" y="123" width="267" height="23"/>
                                 <color key="backgroundColor" red="0.87363797426223755" green="0.96671134233474731" blue="0.8863525390625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -184,7 +184,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Details" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9wy-rn-oPk">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Details" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9wy-rn-oPk" customClass="CustomTextField" customModule="DreamLister" customModuleProvider="target">
                                 <rect key="frame" x="16" y="180" width="343" height="60"/>
                                 <color key="backgroundColor" red="0.87363797426223755" green="0.96671134233474731" blue="0.8863525390625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -258,6 +258,12 @@
                             <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="detailsField" destination="9wy-rn-oPk" id="ZfK-Hf-cKg"/>
+                        <outlet property="priceField" destination="OJy-Lf-rJT" id="BK3-XE-1wd"/>
+                        <outlet property="storePicker" destination="yyc-l3-90g" id="4lA-Ll-DOY"/>
+                        <outlet property="titleField" destination="SLx-bE-Rz4" id="h28-a3-h4g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eD-ee-tnR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

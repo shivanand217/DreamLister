@@ -25,6 +25,7 @@
 		186B78F420DA2B71007F72CE /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186B78F320DA2B71007F72CE /* MaterialView.swift */; };
 		186B78F620DA31C3007F72CE /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186B78F520DA31C3007F72CE /* ItemCell.swift */; };
 		186B78F920DA7777007F72CE /* ItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186B78F820DA7777007F72CE /* ItemDetailsVC.swift */; };
+		18D6AD5520DCC1E700779B88 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D6AD5420DCC1E700779B88 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		186B78F320DA2B71007F72CE /* MaterialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
 		186B78F520DA31C3007F72CE /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		186B78F820DA7777007F72CE /* ItemDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsVC.swift; sourceTree = "<group>"; };
+		18D6AD5420DCC1E700779B88 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			children = (
 				186B78F320DA2B71007F72CE /* MaterialView.swift */,
 				186B78F520DA31C3007F72CE /* ItemCell.swift */,
+				18D6AD5420DCC1E700779B88 /* CustomTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				186B78EC20DA2382007F72CE /* Store+CoreDataClass.swift in Sources */,
 				186B78E920DA2382007F72CE /* ItemType+CoreDataProperties.swift in Sources */,
 				186B78E720DA2382007F72CE /* Item+CoreDataProperties.swift in Sources */,
+				18D6AD5520DCC1E700779B88 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

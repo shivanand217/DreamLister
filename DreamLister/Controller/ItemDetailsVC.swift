@@ -1,12 +1,11 @@
-//
 //  ItemDetailsVC.swift
 //  DreamLister
 //
 //  Created by apple on 20/06/18.
 //  Copyright © 2018 shiv. All rights reserved.
-//
 
 import UIKit
+import CoreData
 
 class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -18,6 +17,10 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     // hold our stores
     var stores = [Store]()
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,13 +28,33 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.done, target: nil, action: nil)
         }
         
-        // delegates and data source
+        // Delegates and data source
         storePicker.delegate = self
         storePicker.dataSource = self
+        
+        // generateStores()
+        // stores.removeAll()
+        getStores()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    func generateStores() {
+        
+        // create entity for Store
+        let store1 = Store(context: context)
+        store1.name = "Best Store"
+        let store2 = Store(context: context)
+        store2.name = "Tesla Dealership"
+        let store3 = Store(context: context)
+        store3.name = "Shri Dealers"
+        let store4 = Store(context: context)
+        store4.name = "California Dealers"
+        let store5 = Store(context: context)
+        store5.name = "Jindal Stores"
+        let store6 = Store(context: context)
+        store6.name = "Tata Stores"
+        
+        // Save to context
+        appDelegate.saveContext()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -49,6 +72,27 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+    }
+    
+    func getStores() {
+        // create fetchRequest for stores
+        let fetchRequest : NSFetchRequest<Store> = Store.fetchRequest()
+        // some sort descriptor
+        let nameSort = NSSortDescriptor(key: "name", ascending: false)
+        fetchRequest.sortDescriptors = [nameSort]
+        
+        _ = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        
+        do {
+            
+            self.stores = try context.fetch(fetchRequest)
+            self.storePicker.reloadAllComponents()
+            
+        } catch {
+            
+            let error = error as NSError
+            print("\(error)")
+        }
     }
 
 }

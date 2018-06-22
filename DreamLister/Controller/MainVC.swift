@@ -66,7 +66,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         return 157
     }
     
-    // Request the data
+    // Request the Item data
     func attemptFetch() {
         
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()

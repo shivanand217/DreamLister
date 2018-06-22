@@ -45,6 +45,30 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         cell.configureCell(item: item)
     }
     
+    // for editing an item
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // have to send this to another view
+        if let objs = controller.fetchedObjects , objs.count > 0 {
+            
+            let item = objs[indexPath.row]
+            performSegue(withIdentifier: "ItemDetailsVC", sender: item)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "ItemDetailsVC" {
+            // cast it as itemDetailsVC
+            if let destination = segue.destination as? ItemDetailsVC {
+                // item was the the sender to this View Controller
+                if let item = sender as? Item {
+                    destination.itemToEdit = item
+                }
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let sections = controller.sections {
@@ -84,7 +108,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         } catch  {
             
             let error = error as? NSError
-            print("\(error)")
+            print("\(error.debugDescription)")
             
         }
     }
@@ -133,7 +157,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
                 tableView.insertRows(at: [indexPath], with: .fade)
             }
             break
-            
         }
     }
     

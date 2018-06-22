@@ -14,8 +14,10 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     @IBOutlet weak var priceField: CustomTextField!
     @IBOutlet weak var detailsField: CustomTextField!
     
-    // hold our stores
+    // Hold our stores
     var stores = [Store]()
+    // For editing existing item
+    var itemToEdit: Item?
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -32,9 +34,12 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         storePicker.delegate = self
         storePicker.dataSource = self
         
-        // generateStores()
-        // stores.removeAll()
+        generateStores()
         getStores()
+        
+        if itemToEdit != nil {
+            loadItemData()
+        }
     }
     
     func generateStores() {
@@ -97,8 +102,14 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     // save the new item details
     @IBAction func saveItemPressed(_ sender: UIButton) {
         
-        //print("save item")
-        let item = Item(context: context)
+        var item: Item!
+        if itemToEdit == nil {
+            // have to create a new item
+            item = Item(context: context)
+        } else {
+            
+            item = itemToEdit
+        }
         
         if let title = titleField.text {
             item.title = title
@@ -111,11 +122,40 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             item.details = details
         }
         
-        // which store has been selected
+        // Which store has been selected
         item.toStore = stores[storePicker.selectedRow(inComponent: 0)]
         appDelegate.saveContext()
         
         navigationController?.popViewController(animated: true)
+    }
+    
+    // item exists already
+    func loadItemData() {
+        
+        // Autofill the previous details
+        if let item = itemToEdit {
+            titleField.text = item.title
+            priceField.text = "\(item.price)"
+            detailsField.text = item.details
+            
+            // We also have to SetUp existing store
+            if let store = item.toStore {
+                
+                var index = 0
+                repeat {
+                    let s = stores[index]
+                    if s.name == store.name {
+                        
+                        storePicker.selectRow(index, inComponent: 0, animated: true)
+                        break
+                        
+                    } else {
+                        index+=1
+                    }
+                    
+                } while (index < stores.count)
+            }
+        }
     }
 
 }

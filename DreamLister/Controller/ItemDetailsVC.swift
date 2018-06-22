@@ -7,17 +7,20 @@
 import UIKit
 import CoreData
 
-class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
+        UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var storePicker: UIPickerView!
     @IBOutlet weak var titleField: CustomTextField!
     @IBOutlet weak var priceField: CustomTextField!
     @IBOutlet weak var detailsField: CustomTextField!
+    @IBOutlet weak var thumbImg: UIImageView!
     
     // Hold our stores
     var stores = [Store]()
     // For editing existing item
     var itemToEdit: Item?
+    var imagePicker: UIImagePickerController!
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -34,7 +37,11 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         storePicker.delegate = self
         storePicker.dataSource = self
         
-        // generateStores() // dummy data
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        /** Uncomment this to generate intial test data. **/
+        //generateStores()
         getStores()
         
         if itemToEdit != nil {
@@ -44,19 +51,23 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     
     func generateStores() {
         
-        // create entity for Store
+        // Create entity for Store
         let store1 = Store(context: context)
-        store1.name = "Best Store"
+        store1.name = "Mac Stores"
         let store2 = Store(context: context)
         store2.name = "Tesla Dealership"
         let store3 = Store(context: context)
-        store3.name = "Shri Dealers"
+        store3.name = "Toyota Dealers"
         let store4 = Store(context: context)
         store4.name = "California Dealers"
         let store5 = Store(context: context)
-        store5.name = "Jindal Stores"
+        store5.name = "Amazon"
         let store6 = Store(context: context)
-        store6.name = "Tata Stores"
+        store6.name = "Wallmart"
+        let store7 = Store(context: context)
+        store7.name = "Flipkart"
+        let store8 = Store(context: context)
+        store8.name = "Dream buy stores"
         
         // Save to context
         appDelegate.saveContext()
@@ -80,6 +91,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func getStores() {
+        
         // create fetchRequest for stores
         let fetchRequest : NSFetchRequest<Store> = Store.fetchRequest()
         // some sort descriptor
@@ -103,18 +115,25 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     @IBAction func saveItemPressed(_ sender: UIButton) {
         
         var item: Item!
+        // have to create image entity first because it is an entity in our database
+        let picture = Image(context: context)
+        picture.image = thumbImg.image
+        
         if itemToEdit == nil {
-            // have to create a new item
+            // this is a new item
             item = Item(context: context)
         } else {
+            // this is an existing item
             item = itemToEdit
         }
+        
+        item.toImage = picture
         
         if let title = titleField.text {
             item.title = title
         }
         if let price = priceField.text {
-            //item.price = Double(price)!
+            // item.price = Double(price)!
             item.price = (price as NSString).doubleValue
         }
         if let details = detailsField.text {
@@ -137,6 +156,8 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             titleField.text = item.title
             priceField.text = "\(item.price)"
             detailsField.text = item.details
+            
+            thumbImg.image = item.toImage?.image as? UIImage
             
             // We also have to SetUp existing store
             if let store = item.toStore {
@@ -172,9 +193,11 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             
             refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
                 // do nothing
+                self.navigationController?.popViewController(animated: true)
             }))
             
             present(refreshAlert, animated: true, completion: nil)
+            
             
         } else {
             
@@ -182,6 +205,19 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    @IBAction func addImage(_ sender: UIButton) {
+        // loads the image
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let img = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            thumbImg.image = img
+        }
+        imagePicker.dismiss(animated: true, completion: nil)
     }
 
 }

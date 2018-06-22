@@ -34,7 +34,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         storePicker.delegate = self
         storePicker.dataSource = self
         
-        generateStores()
+        // generateStores() // dummy data
         getStores()
         
         if itemToEdit != nil {
@@ -76,7 +76,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        // update when selected
     }
     
     func getStores() {
@@ -107,7 +107,6 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             // have to create a new item
             item = Item(context: context)
         } else {
-            
             item = itemToEdit
         }
         
@@ -134,6 +133,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         
         // Autofill the previous details
         if let item = itemToEdit {
+            
             titleField.text = item.title
             priceField.text = "\(item.price)"
             detailsField.text = item.details
@@ -148,13 +148,39 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
                         
                         storePicker.selectRow(index, inComponent: 0, animated: true)
                         break
-                        
                     } else {
                         index+=1
                     }
                     
                 } while (index < stores.count)
             }
+        }
+    }
+    
+    @IBAction func deleteItemPressed(_ sender: UIBarButtonItem) {
+        
+        // If this is an existing item in our datastore
+        if itemToEdit != nil {
+            
+            let refreshAlert = UIAlertController(title: "Alert!!", message: "Item data will be deleted, Do you want to delete it? 😰", preferredStyle: UIAlertControllerStyle.alert)
+            
+            refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+                context.delete(self.itemToEdit!)
+                appDelegate.saveContext()
+                self.navigationController?.popViewController(animated: true)
+            }))
+            
+            refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+                // do nothing
+            }))
+            
+            present(refreshAlert, animated: true, completion: nil)
+            
+        } else {
+            
+            let alert = UIAlertController(title: "Sorry", message: "The item you want to delete is not is in the datastore 🙁.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
 

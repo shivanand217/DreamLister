@@ -214,6 +214,9 @@
                                 <state key="normal" title="Save Item">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveItemPressed:" destination="uyg-0i-PxZ" eventType="touchUpInside" id="a1E-v8-Orz"/>
+                                </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyc-l3-90g">
                                 <rect key="frame" x="0.0" y="392" width="375" height="162"/>

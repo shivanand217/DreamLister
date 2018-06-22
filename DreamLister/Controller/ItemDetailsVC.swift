@@ -84,7 +84,6 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         _ = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
         do {
-            
             self.stores = try context.fetch(fetchRequest)
             self.storePicker.reloadAllComponents()
             
@@ -93,6 +92,30 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
             let error = error as NSError
             print("\(error)")
         }
+    }
+    
+    // save the new item details
+    @IBAction func saveItemPressed(_ sender: UIButton) {
+        
+        //print("save item")
+        let item = Item(context: context)
+        
+        if let title = titleField.text {
+            item.title = title
+        }
+        if let price = priceField.text {
+            //item.price = Double(price)!
+            item.price = (price as NSString).doubleValue
+        }
+        if let details = detailsField.text {
+            item.details = details
+        }
+        
+        // which store has been selected
+        item.toStore = stores[storePicker.selectedRow(inComponent: 0)]
+        appDelegate.saveContext()
+        
+        navigationController?.popViewController(animated: true)
     }
 
 }

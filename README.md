@@ -1,5 +1,6 @@
 # DreamLister
 Don't let your dreams becomes Memes.
+Featuring all of the Core data stack functionalities in iOS.
 
 
   sortByDate             |  Edit/Add Item

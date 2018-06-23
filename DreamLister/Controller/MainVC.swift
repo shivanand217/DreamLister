@@ -142,8 +142,11 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        /** For all the four modification Types
-            Insert, Delete, Update, Move **/
+        /**
+            For all the four types of Types
+            Insert, Delete, Update, Move
+         
+        **/
         switch(type) {
             
         case.insert:

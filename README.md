@@ -6,6 +6,6 @@ Don't let your dreams becomes Memes.
   :-------------------------:|:-------------------------:
   ![Screen4](../master/DreamLister/dreams.png)  |  ![Screen4](../master/DreamLister/dream1.png)
   
-  sortByPrice             |  sortByTitle
+   sortByTitle            |  sortByPrice
   :-------------------------:|:-------------------------:
-  ![Screen4](../master/DreamLister/dreams2.png)  |  ![Screen4](../master/DreamLister/dream3.png)
+  ![Screen4](../master/DreamLister/dream2.png)  |  ![Screen4](../master/DreamLister/dream3.png)

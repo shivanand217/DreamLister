@@ -178,7 +178,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         }
     }
     
-    func generateTestData() {
+    /**func generateTestData() {
         
         /** some dummy data **/
         let item = Item(context: context)
@@ -197,7 +197,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         item3.details = "One day i will own it."
         
         appDelegate.saveContext()
-    }
+    }**/
     
 }
 
